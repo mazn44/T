@@ -1,0 +1,541 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>قسم الخدمات العامة والضيافة | معرض إيفان</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* =========================================
+           الثيم الفندقي 2026 (Ultra-Premium Teal & Gold 3D)
+           ========================================= */
+        :root {
+            /* Dark Mode - الوضع الفخم */
+            --bg-base: #020a0a;
+            --bg-surface: rgba(4, 25, 25, 0.7);
+            --bg-card: rgba(8, 35, 35, 0.6);
+            --bg-card-hover: rgba(12, 45, 45, 0.85);
+            
+            --primary: #0f766e; 
+            --primary-glow: rgba(15, 118, 110, 0.6);
+            --secondary: #14b8a6; 
+            
+            --gold: #fbbf24; 
+            --gold-gradient: linear-gradient(135deg, #fef08a, #d97706);
+            --gold-glow: rgba(251, 191, 36, 0.4);
+            
+            /* تدرج خاص لمحمد مجيد (مزدوج المهام) */
+            --dual-gradient: linear-gradient(135deg, #38bdf8, #d97706);
+            
+            --border-glass: rgba(20, 184, 166, 0.2);
+            --border-gold: rgba(251, 191, 36, 0.3);
+            
+            --text-main: #f8fafc;
+            --text-muted: #99f6e4;
+            --badini-text: #fde68a;
+            
+            --success: #10b981;
+            --danger: #f43f5e;
+        }
+
+        [data-theme="light"] {
+            /* Light Mode - الوضع الساطع */
+            --bg-base: #f0fdfa;
+            --bg-surface: rgba(255, 255, 255, 0.85);
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --bg-card-hover: #ffffff;
+            
+            --primary: #0f766e; 
+            --primary-glow: rgba(15, 118, 110, 0.3);
+            --secondary: #0d9488; 
+            
+            --gold: #b45309; 
+            --gold-gradient: linear-gradient(135deg, #d97706, #78350f);
+            --gold-glow: rgba(180, 83, 9, 0.3);
+            
+            --dual-gradient: linear-gradient(135deg, #0284c7, #b45309);
+            
+            --border-glass: rgba(13, 148, 136, 0.15);
+            --border-gold: rgba(180, 83, 9, 0.2);
+            
+            --text-main: #134e4a;
+            --text-muted: #115e59;
+            --badini-text: #78350f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden; 
+            width: 100%;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* جزيئات بريق النظافة الماسية */
+        #particles-canvas {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+        /* =========================================
+           الزر السحري (Toggle)
+           ========================================= */
+        .theme-switch-wrapper { position: fixed; top: 20px; left: 20px; z-index: 100; }
+        .theme-switch { display: inline-block; width: 65px; height: 36px; position: relative; }
+        .theme-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #0f766e; border-radius: 36px;
+            border: 1px solid var(--border-glass); box-shadow: inset 0 0 15px rgba(0,0,0,0.6);
+        }
+        .slider:before {
+            position: absolute; content: "\f186"; font-family: 'Font Awesome 6 Free'; font-weight: 900;
+            height: 28px; width: 28px; left: 4px; bottom: 3px; background-color: #fbbf24;
+            color: #fff; display: flex; justify-content: center; align-items: center; font-size: 15px;
+            border-radius: 50%; box-shadow: 0 0 15px var(--gold-glow); transition: .4s;
+        }
+        input:checked + .slider { background-color: #ccfbf1; }
+        input:checked + .slider:before { transform: translateX(27px); content: "\f185"; background-color: #d97706; }
+
+        /* =========================================
+           الترويسة (3D Title & Icon)
+           ========================================= */
+        .hero-section {
+            padding: 8vh 15px 5vh; text-align: center; 
+            background: linear-gradient(180deg, rgba(217, 119, 6, 0.08) 0%, transparent 100%);
+            border-bottom: 1px solid var(--border-gold);
+            position: relative; perspective: 1000px;
+        }
+        
+        .hero-icon-wrap {
+            display: inline-flex; justify-content: center; align-items: center;
+            width: 120px; height: 120px; border-radius: 50%;
+            background: rgba(251, 191, 36, 0.05); border: 2px solid var(--gold);
+            box-shadow: 0 0 40px var(--gold-glow), inset 0 0 20px var(--gold-glow);
+            margin-bottom: 25px; animation: float-3d 4s ease-in-out infinite;
+        }
+        .hero-icon-wrap i {
+            font-size: 4rem; background: var(--gold-gradient);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        @keyframes float-3d {
+            0%, 100% { transform: translateY(0) rotateX(0deg); }
+            50% { transform: translateY(-10px) rotateX(10deg); box-shadow: 0 15px 50px var(--gold-glow), inset 0 0 30px var(--gold-glow); }
+        }
+
+        .hero-section h1 { font-size: clamp(2.2rem, 4.5vw, 4rem); font-weight: 900; color: var(--text-main); margin-bottom: 10px; text-shadow: 0 5px 15px rgba(0,0,0,0.5);}
+        .hero-section h2 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); font-weight: 800; color: var(--gold); margin-bottom: 35px; letter-spacing: 2px;}
+        
+        /* شعار الانطباع الفندقي (بديل ديزني) */
+        .premium-motto {
+            display: inline-flex; align-items: center; justify-content: center; gap: 15px; 
+            background: linear-gradient(90deg, rgba(15, 118, 110, 0.2), rgba(251, 191, 36, 0.1));
+            border: 1px solid var(--gold); padding: 18px 40px; border-radius: 50px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 20px var(--gold-glow);
+            max-width: 950px; margin: 0 auto; line-height: 1.6; backdrop-filter: blur(10px);
+        }
+        .premium-motto i { font-size: 2rem; color: var(--gold); filter: drop-shadow(0 0 10px var(--gold-glow));}
+        .premium-motto p { font-size: clamp(1.15rem, 2vw, 1.3rem); font-weight: 900; color: var(--text-main); margin: 0;}
+        .premium-motto p span { color: var(--gold); border-bottom: 2px dashed var(--gold); padding-bottom: 3px;}
+
+        /* =========================================
+           لوحة الشرف 2026 (دروع وأوسمة 3D)
+           ========================================= */
+        .honor-board {
+            background: var(--bg-surface); border: 1px solid var(--border-glass); border-radius: 30px; 
+            padding: 50px 20px; max-width: 1300px; margin: 50px auto 0; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4), inset 0 0 30px rgba(15, 118, 110, 0.2);
+            position: relative; overflow: hidden;
+        }
+
+        .board-title { color: var(--gold); font-size: 2rem; font-weight: 900; margin-bottom: 40px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+
+        .manager-crown {
+            display: inline-flex; align-items: center; gap: 15px; background: rgba(251, 191, 36, 0.15);
+            border: 2px solid var(--gold); padding: 18px 50px; border-radius: 50px; 
+            font-weight: 900; font-size: clamp(1.4rem, 2.5vw, 1.6rem); margin-bottom: 40px;
+            box-shadow: 0 10px 30px var(--gold-glow); transition: 0.4s; cursor: default;
+        }
+        .manager-crown i { font-size: 1.6em; color: var(--gold); filter: drop-shadow(0 0 10px var(--gold));}
+        .manager-crown span { background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+        .manager-crown:hover { transform: scale(1.05); box-shadow: 0 15px 40px var(--gold-glow);}
+
+        .staff-grid { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;}
+        
+        .staff-medal {
+            background: var(--bg-card); border: 1px solid var(--border-glass); 
+            padding: 15px 30px; border-radius: 35px; font-weight: 900; color: var(--text-main); 
+            font-size: clamp(1.1rem, 1.5vw, 1.25rem); display: flex; align-items: center; gap: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .staff-medal::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transform: skewX(-20deg); transition: 0.5s;
+        }
+        .staff-medal:hover::after { left: 150%; }
+        .staff-medal:hover { transform: translateY(-8px); box-shadow: 0 15px 30px var(--primary-glow); border-color: var(--primary);}
+        
+        /* تخصيص الأوسمة (عبد الله ومحمد مجيد) */
+        .medal-gold { border-color: var(--gold); background: rgba(251, 191, 36, 0.08); }
+        .medal-gold i { color: var(--gold); font-size: 1.5em; filter: drop-shadow(0 0 10px var(--gold-glow));}
+        .medal-gold:hover { box-shadow: 0 15px 30px var(--gold-glow); border-color: var(--gold);}
+
+        .medal-dual { border: 2px solid transparent; background: linear-gradient(var(--bg-card), var(--bg-card)) padding-box, var(--dual-gradient) border-box; }
+        .medal-dual i { background: var(--dual-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 1.5em;}
+        .medal-dual:hover { box-shadow: 0 15px 30px rgba(56, 189, 248, 0.3); transform: translateY(-8px) scale(1.02);}
+
+        .medal-silver i { color: var(--secondary); font-size: 1.4em; filter: drop-shadow(0 0 8px var(--primary-glow));}
+
+        /* =========================================
+           الهيكل العرضي
+           ========================================= */
+        .container { width: 100%; max-width: 1500px; margin: 0 auto; padding: 20px 15px 60px; }
+
+        .section-header {
+            display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 50px; margin-top: 30px;
+        }
+        .section-header i { font-size: clamp(2rem, 3vw, 2.5rem); color: var(--gold); filter: drop-shadow(0 0 10px var(--gold-glow));}
+        .section-header h2 { font-size: clamp(1.8rem, 3vw, 2.2rem); font-weight: 900; color: var(--text-main); border-bottom: 3px solid var(--gold); padding-bottom: 10px;}
+
+        /* =========================================
+           جدول التنظيف (3D Timeline)
+           ========================================= */
+        .timeline-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 70px; }
+        .time-box {
+            background: var(--bg-surface); border: 1px solid var(--border-glass); border-top: 5px solid var(--gold);
+            padding: 40px 30px; border-radius: 24px; text-align: center; transition: 0.5s;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3); transform: translateZ(0);
+        }
+        .time-box:hover { background: var(--bg-card-hover); transform: translateY(-10px) scale(1.02); box-shadow: 0 25px 50px var(--gold-glow);}
+        .time-icon { font-size: 3.5rem; color: var(--gold); margin-bottom: 25px; filter: drop-shadow(0 0 15px var(--gold-glow));}
+        .time-title { font-size: 1.4rem; font-weight: 900; color: var(--text-main); margin-bottom: 15px;}
+        .time-desc { font-size: 1.15rem; color: var(--text-muted); font-weight: 700; line-height: 1.7;}
+
+        /* =========================================
+           معايير الرقي الفندقي (المسموح والممنوع)
+           ========================================= */
+        .grid-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 35px; margin-bottom: 70px; }
+        
+        .card {
+            background: var(--bg-surface); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass); border-radius: 30px; padding: 45px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4); transition: 0.5s ease; display: flex; flex-direction: column;
+        }
+        .card:hover { border-color: var(--gold); box-shadow: 0 20px 60px rgba(251, 191, 36, 0.2); transform: translateY(-5px);}
+        
+        .card-header { display: flex; align-items: center; gap: 15px; margin-bottom: 35px; border-bottom: 1px dashed var(--border-gold); padding-bottom: 20px;}
+        .card-header i { font-size: 2.2rem; }
+        .card-header h3 { font-size: clamp(1.5rem, 2vw, 1.8rem); font-weight: 900; color: var(--text-main); }
+
+        .rules-ul { list-style: none; display: flex; flex-direction: column; gap: 25px; }
+        .rules-ul li { position: relative; padding-right: 60px; font-size: clamp(1.15rem, 2vw, 1.25rem); line-height: 1.8; color: var(--text-muted); font-weight: 600;}
+        .rules-ul li strong { color: var(--text-main); font-weight: 900; display: block; margin-bottom: 5px; font-size: 1.1em;}
+        .rules-ul li::before {
+            position: absolute; right: 0; top: 5px; width: 40px; height: 40px; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center; font-size: 18px;
+            font-family: 'Font Awesome 6 Free'; font-weight: 900; box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+        .pro-rules li::before { content: '\f00c'; color: var(--success); background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success);}
+        .warn-rules li::before { content: '\f00d'; color: var(--danger); background: rgba(244, 63, 94, 0.15); border: 1px solid var(--danger);}
+
+        /* =========================================
+           بروتوكول الضيافة (لغة الترحيب)
+           ========================================= */
+        .script-box {
+            background: linear-gradient(135deg, var(--bg-card), rgba(251, 191, 36, 0.08)); 
+            border-radius: 24px; padding: 40px; margin-bottom: 30px;
+            border: 1px solid var(--border-glass); border-right: 10px solid var(--gold);
+            transition: 0.5s; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .script-box:hover { transform: translateX(-15px) scale(1.02); box-shadow: 0 15px 40px var(--gold-glow); border-color: var(--gold);}
+        .script-box:last-child { margin-bottom: 0; }
+        
+        .lang-group { margin-bottom: 30px; }
+        .lang-group:last-child { margin-bottom: 0; padding-top: 30px; border-top: 1px dashed rgba(255,255,255,0.15); }
+        .lang-lbl { font-size: 1.1rem; color: var(--gold); font-weight: 900; margin-bottom: 15px; display: inline-block; background: rgba(251,191,36,0.1); padding: 8px 20px; border-radius: 25px;}
+        
+        .arabic-txt { font-size: clamp(1.4rem, 2vw, 1.6rem); font-weight: 900; color: var(--text-main); line-height: 1.8; }
+        .badini-txt { font-size: clamp(1.2rem, 1.5vw, 1.4rem); font-weight: 800; color: var(--badini-text); line-height: 1.8; } 
+
+        /* =========================================
+           الفوتر
+           ========================================= */
+        footer {
+            background: var(--bg-base); border-top: 1px solid var(--border-glass);
+            padding: 70px 20px; text-align: center; margin-top: 50px;
+        }
+        
+        .marketing-credit {
+            display: inline-flex; align-items: center; gap: 15px; background: rgba(251, 191, 36, 0.05); border: 1px solid var(--gold);
+            color: var(--gold); padding: 18px 45px; border-radius: 50px; font-size: 1.3rem; font-weight: 900; margin-bottom: 35px;
+            box-shadow: 0 10px 30px var(--gold-glow);
+        }
+        
+        .wa-contact {
+            display: inline-flex; align-items: center; gap: 12px; background: rgba(37, 211, 102, 0.15);
+            border: 1px solid rgba(37, 211, 102, 0.5); color: #25d366; padding: 18px 45px;
+            border-radius: 50px; font-weight: 900; font-size: 1.3rem; text-decoration: none; transition: 0.4s;
+        }
+        .wa-contact:hover { background: #25d366; color: #fff; transform: translateY(-5px); box-shadow: 0 15px 40px rgba(37, 211, 102, 0.4);}
+
+        @media (max-width: 768px) {
+            .hero-icon-wrap { width: 90px; height: 90px; }
+            .hero-icon-wrap i { font-size: 3rem; }
+            .royal-motto { flex-direction: column; text-align: center; padding: 25px; }
+            .manager-crown { font-size: 1.2rem; padding: 15px 35px; }
+            .staff-medal { font-size: 1rem; padding: 12px 25px; }
+            .grid-cards { grid-template-columns: 1fr; }
+            .script-box { padding: 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- زر التبديل الليلي/النهاري -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" onchange="toggleTheme(this)">
+            <div class="slider"></div>
+        </label>
+    </div>
+
+    <!-- كانفاس: بريق فندقي ذهبي يتلألأ ببطء -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- الترويسة و لوحة الشرف الفاخرة -->
+    <header class="hero-section">
+        <!-- أيقونة التاج/الفخامة 3D -->
+        <div class="hero-icon-wrap">
+            <i class="fa-solid fa-crown"></i>
+        </div>
+        
+        <h1>إدارة الخدمات العامة والضيافة</h1>
+        <h2>Premium Facility & Hospitality Management</h2>
+        
+        <!-- قاعدة الانطباع الأول الفخمة -->
+        <div class="royal-motto">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> 
+            <p>أنت لست مجرد مقدم خدمة، أنت <span>صانع الانطباع الأول</span>. النظافة المطلقة والضيافة الراقية هما سر فخامة المعرض وواجهته الحقيقية.</p>
+        </div>
+
+        <!-- لوحة أوسمة الأبطال 2026 -->
+        <div class="honor-board">
+            <div class="board-title">أبطال الرقي الفندقي</div>
+            
+            <div class="manager-crown">
+                <i class="fa-solid fa-gem"></i> <span>مسؤول الخدمات العامة: ماجد</span>
+            </div>
+            
+            <div class="staff-grid">
+                <!-- وسام الضيافة -->
+                <div class="staff-medal medal-gold" title="مسؤول الضيافة والقهوة">
+                    <i class="fa-solid fa-mug-hot"></i> عبد الله (ضيافة ذهبية)
+                </div>
+                <!-- وسام محمد مجيد المزدوج -->
+                <div class="staff-medal medal-dual" title="مبيعات وخدمات فندقية">
+                    <i class="fa-solid fa-user-tie"></i> محمد مجيد (بائع + بطل نظافة فندقية)
+                </div>
+                <!-- أوسمة البريق -->
+                <div class="staff-medal medal-silver" title="بطل التعقيم والبريق">
+                    <i class="fa-solid fa-sparkles"></i> مهيار
+                </div>
+                <div class="staff-medal medal-silver" title="درع النظافة الفاخرة">
+                    <i class="fa-solid fa-shield-halved"></i> حيدر
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ==========================================
+             جدول التنظيف (3D Timeline - معدل قبل 11)
+             ========================================== -->
+        <div class="section-header">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            <h2>توقيت البريق الدائم</h2>
+        </div>
+        
+        <div class="timeline-grid">
+            <div class="time-box">
+                <i class="fa-solid fa-sun time-icon"></i>
+                <div class="time-title">التحضير الصباحي (قبل 11:00 ص)</div>
+                <div class="time-desc">مسح شامل للطاولات، تلميع زجاج المداخل، تنظيف المرايا، وتجهيز الأرضيات لتبدو كالجديدة تماماً قبل استقبال أول زبون.</div>
+            </div>
+            <div class="time-box">
+                <i class="fa-solid fa-stopwatch time-icon"></i>
+                <div class="time-title">كل ساعتين (دوري)</div>
+                <div class="time-desc">تشييك فندقي للحمامات: التأكد من توفر المناديل والصابون، جفاف المغاسل، ورش المعطر الفاخر باستمرار للحفاظ على الرائحة الزكية.</div>
+            </div>
+            <div class="time-box">
+                <i class="fa-solid fa-hand-sparkles time-icon"></i>
+                <div class="time-title">مراقبة مستمرة</div>
+                <div class="time-desc">إزالة الغبار فور ظهوره باستخدام الفوطة الخاصة. الغبار عدو الفخامة، لا تتركه يتراكم على الأطقم الداكنة والمرايا أبداً.</div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             معايير الرقي (المسموح والممنوع)
+             ========================================== -->
+        <div class="section-header">
+            <i class="fa-solid fa-star-half-stroke"></i>
+            <h2>دستور الفخامة والضيافة</h2>
+        </div>
+
+        <div class="grid-cards">
+            
+            <!-- معايير التميز -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-check-double" style="color: var(--success);"></i>
+                    <h3 style="color: var(--success);">معايير العمل  </h3>
+                </div>
+                <ul class="rules-ul pro-rules">
+                    <li><strong>سرعة الاستجابة:</strong> تقديم الضيافة بابتسامة ترحيبية صادقة خلال <strong>3 دقائق</strong> فقط من جلوس الزبون.</li>
+                    <li><strong>اللمعان الدائم:</strong> مسح الطاولات الزجاجية والمرايا بشكل يومي ودوري لتجنب أي بصمات تشوه جمال الأثاث.</li>
+                    <li><strong>الرائحة العطرة:</strong> رش معطر الجو الفاخر في الممرات ومناطق الجلوس لخلق بيئة مريحة تفتح نفس الزبون.</li>
+                    <li><strong>اللباقة والاحترافية:</strong> الإجابة على أي زبون يسألك بابتسامة، أو توجيهه لموظف المبيعات بكل أدب واحترام وعبارات ترحيبية.</li>
+                </ul>
+            </div>
+
+            <!-- محظورات تكسر الفخامة -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fa-solid fa-ban" style="color: var(--danger);"></i>
+                    <h3 style="color: var(--danger);">محظورات تكسر هيبة المعرض</h3>
+                </div>
+                <ul class="rules-ul warn-rules">
+                    <li><strong>تراكم المخلفات:</strong> ترك الأكواب أو كاسات الماء الفارغة على الأثاث المعروض بعد مغادرة الزبون (ترفع وتنظف فوراً).</li>
+                    <li><strong>إزعاج الزبائن:</strong> استخدام المكنسة الكهربائية وقت وجود الزبائن. نكتفي بفوطة التلميع اليدوية لمنع إثارة الغبار.</li>
+                    <li><strong>المظهر غير اللائق:</strong> الجلوس على غرف العرض أو الطواقم المخصصة للبيع لأخذ استراحة، هذا يقلل من هيبة البضاعة.</li>
+                    <li><strong>الصوت العالي:</strong> التحدث بصوت مرتفع بين الموظفين في الصالة، أو الضحك المبالغ فيه. المعرض مكان هادئ.</li>
+                    <li><strong>الفتور والبرود:</strong> إهمال الغبار الواضح، أو التعامل ببرود ووجه عبوس مع طلبات الزبائن.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             الكلمة الطيبة (نصوص الضيافة)
+             ========================================== -->
+        <div class="section-header">
+            <i class="fa-solid fa-comments"></i>
+            <h2>بروتوكول الترحيب (لغة الضيافة)</h2>
+        </div>
+
+        <div class="grid-cards">
+            <div class="card" style="grid-column: 1 / -1; padding: 0; border: none; background: transparent; box-shadow: none;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px;">
+                    
+                    <div class="script-box">
+                        <div class="lang-group">
+                            <span class="lang-lbl">تقديم الضيافة (عربي)</span>
+                            <div class="arabic-txt">أهلاً وسهلاً نورتونا، تفضلوا استريحوا... تحبون تشربون شاي لو قهوة؟</div>
+                        </div>
+                    </div>
+
+                    <div class="script-box">
+                        <div class="lang-group">
+                            <span class="lang-lbl">تقديم الضيافة (باديني)</span>
+                            <div class="badini-txt">سەرچاڤان فەرموون، دێ چ ڤەخۆن؟ چایەکێ یان قەهوەیەکێ؟</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ==========================================
+         الفوتر الختامي (قسم التسويق)
+         ========================================== -->
+    <footer>
+        <div class="marketing-credit">
+            <i class="fa-solid fa-gem"></i> صادر من قسم التسويق والتطوير
+        </div>
+        <br>
+        <a href="https://wa.me/9647502316274" class="wa-contact" target="_blank">
+            <i class="fa-brands fa-whatsapp"></i> تواصل مع إدارة التسويق
+        </a>
+    </footer>
+
+    <!-- سكربت بريق 3D الفخم -->
+    <script>
+        function toggleTheme(checkbox) {
+            if(checkbox.checked) {
+                document.body.setAttribute('data-theme', 'light');
+            } else {
+                document.body.removeAttribute('data-theme');
+            }
+        }
+
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+
+        function initCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            // جزيئات بريق ماسي/ذهبي تتصاعد ببطء شديد
+            let particleCount = window.innerWidth < 768 ? 25 : 45;
+            for (let i = 0; i < particleCount; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    r: Math.random() * 2.5 + 0.5,
+                    vx: Math.random() * 0.1 - 0.05, 
+                    vy: (Math.random() * -0.25) - 0.05, // حركة للأعلى
+                    opacity: Math.random() * 0.5 + 0.2 // تفاوت في اللمعان
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            
+            let isLightMode = document.body.getAttribute('data-theme') === 'light';
+            
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                
+                // لون ذهبي يتغير مع الوضع الليلي/النهاري
+                if(isLightMode) {
+                    ctx.fillStyle = `rgba(180, 83, 9, ${p.opacity})`;
+                } else {
+                    ctx.fillStyle = `rgba(251, 191, 36, ${p.opacity})`;
+                }
+                
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = isLightMode ? 'rgba(180, 83, 9, 0.5)' : 'rgba(251, 191, 36, 0.5)';
+                ctx.fill();
+                ctx.shadowBlur = 0; // إرجاع الظل للصفر حتى لا يؤثر على باقي العناصر
+
+                p.x += p.vx; p.y += p.vy;
+                
+                // إعادة الجزيئات بهدوء
+                if (p.y < 0) p.y = height;
+                if (p.x < 0 || p.x > width) p.vx *= -1;
+            });
+
+            requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener('resize', initCanvas);
+        initCanvas();
+        drawParticles();
+    </script>
+</body>
+</html>
